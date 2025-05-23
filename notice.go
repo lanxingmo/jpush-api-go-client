@@ -19,7 +19,7 @@ type AndroidNotice struct {
 	BuilderId int    `json:"builder_id,omitempty"`
 	LargeIcon string `json:"large_icon,omitempty"`
 
-	Intent Intent                 `json:"intent,omitempty"`
+	Intent map[string]interface{} `json:"intent,omitempty"`
 	Extras map[string]interface{} `json:"extras,omitempty"`
 }
 
@@ -44,7 +44,7 @@ type WinPhoneNotice struct {
 type Hmos struct {
 	Alert       string                 `json:"alert"`
 	Title       string                 `json:"title"`
-	Intent      Intent                 `json:"intent,omitempty"`
+	Intent      map[string]interface{} `json:"intent,omitempty"`
 	BadgeAddNum int                    `json:"badge_add_num"`
 	BadgeSetNum int                    `json:"badge_set_num"`
 	Extras      map[string]interface{} `json:"extras"`
