@@ -8,9 +8,9 @@ type Notice struct {
 	Android  *AndroidNotice  `json:"android,omitempty"`
 	IOS      *IOSNotice      `json:"ios,omitempty"`
 	WINPhone *WinPhoneNotice `json:"winphone,omitempty"`
-	Hmos     *Hmos           `json:"hmos"`
-	Voip     *Voip           `json:"voip"`
-	QuickApp *QuickApp       `json:"quickapp"`
+	Hmos     *HmosNotice     `json:"hmos,omitempty"`
+	Voip     *VoipNotice     `json:"voip,omitempty"`
+	QuickApp *QuickAppNotice `json:"quickapp,omitempty"`
 }
 
 type AndroidNotice struct {
@@ -41,7 +41,7 @@ type WinPhoneNotice struct {
 }
 
 // 定义 Hmos 结构体
-type Hmos struct {
+type HmosNotice struct {
 	Alert       string                 `json:"alert"`
 	Title       string                 `json:"title"`
 	Intent      map[string]interface{} `json:"intent,omitempty"`
@@ -57,14 +57,21 @@ type Hmos struct {
 	// 如果有其他可选字段，可以在这里添加
 }
 
+func NewHmosNotice() *HmosNotice {
+	intent := make(map[string]interface{})
+	intent["url"] = "action.system.home"
+	return &HmosNotice{Intent: intent, BadgeAddNum: 1}
+}
+
 // 定义 Voip 结构体
-type Voip map[string]interface{} // 使用 map 来处理任意自定义 key/value 对
+type VoipNotice map[string]interface{} // 使用 map 来处理任意自定义 key/value 对
 
 // 定义 QuickApp 结构体
-type QuickApp struct {
-	Alert string `json:"alert"`
-	Title string `json:"title"`
-	Page  string `json:"page"`
+type QuickAppNotice struct {
+	Alert  string                 `json:"alert"`
+	Title  string                 `json:"title"`
+	Page   string                 `json:"page"`
+	Extras map[string]interface{} `json:"extras,omitempty"`
 }
 
 func (this *Notice) SetAlert(alert string) {
@@ -81,4 +88,16 @@ func (this *Notice) SetIOSNotice(n *IOSNotice) {
 
 func (this *Notice) SetWinPhoneNotice(n *WinPhoneNotice) {
 	this.WINPhone = n
+}
+
+func (this *Notice) SetHmosNotice(n *HmosNotice) {
+	this.Hmos = n
+}
+
+func (this *Notice) SetQuickAppNotice(n *QuickAppNotice) {
+	this.QuickApp = n
+}
+
+func (this *Notice) SetVoipNotice(n *VoipNotice) {
+	this.Voip = n
 }
