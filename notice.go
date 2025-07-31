@@ -31,6 +31,7 @@ type IOSNotice struct {
 	MutableContent   bool                   `json:"mutable-content,omitempty"`
 	Category         string                 `json:"category,omitempty"`
 	Extras           map[string]interface{} `json:"extras,omitempty"`
+	ThreadId         string                 `json:"thread-id,omitempty"`
 }
 
 type WinPhoneNotice struct {
